@@ -33,8 +33,10 @@
 #include <avr/io.h>
 #endif  // __AVR__
 //
+#ifndef SDFAT_FILE_TYPE
 #define SDFAT_FILE_TYPE 1
-#define USE_UTF8_LONG_NAMES 1
+#endif // SDFAT_FILE_TYPE
+
 //
 // For minimum flash size use these settings:
 // #define USE_FAT_FILE_FLAG_CONTIGUOUS 0
@@ -215,7 +217,7 @@ typedef uint8_t SdCsPin_t;
  * getName() will return UTF-8 strings and printName() will write UTF-8 strings.
  */
 #ifndef USE_UTF8_LONG_NAMES
-#define USE_UTF8_LONG_NAMES 0
+#define USE_UTF8_LONG_NAMES 1
 #endif  // USE_UTF8_LONG_NAMES
 
 #if USE_UTF8_LONG_NAMES && !USE_LONG_FILE_NAMES
