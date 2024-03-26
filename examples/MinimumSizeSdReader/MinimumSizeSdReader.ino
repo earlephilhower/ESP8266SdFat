@@ -14,8 +14,7 @@ File file;
 #include "SdFat.h"
 // Setting ENABLE_DEDICATED_SPI to zero saves over 200 more bytes.
 #if ENABLE_DEDICATED_SPI
-//#warning \
-    "Set ENABLE_DEDICATED_SPI zero in SdFat/src/SdFatConfig.h for minimum size"
+//#warning "Set ENABLE_DEDICATED_SPI zero in SdFat/src/SdFatConfig.h for minimum size"
 #endif  // ENABLE_DEDICATED_SPI
 // Insure FAT16/FAT32 only.
 SdFat32 SD;

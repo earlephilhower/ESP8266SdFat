@@ -436,7 +436,7 @@ class DedicatedSpiCard : public SharedSpiCard {
   bool writeSectors(uint32_t sector, const uint8_t* src, size_t ns);
 
  private:
-  uint32_t m_curSector;
+  uint32_t m_curSector = 0;
   bool m_sharedSpi = true;
 #else // HOST_MOCK
  public:
@@ -496,7 +496,6 @@ private:
   int m_status;
   int m_type;
 #endif
-  uint32_t m_curSector = 0;
   bool m_dedicatedSpi = false;
 };
 //==============================================================================
