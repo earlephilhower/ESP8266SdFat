@@ -135,7 +135,7 @@ class StreamFile : public stream_t, public BaseFile {
 
   // esp8266/Arduino - overload for Stream.h
   size_t readBytes(char* buffer, size_t size) {
-      return readBytes((uint8_t*)buffer, size);
+    return BaseFile::read((void*)buffer, size);
   }
 
   // esp8266/Arduino - overload for StreamDev.h
