@@ -45,6 +45,10 @@ class PrintFile : public print_t, public BaseFile {
   using BaseFile::clearWriteError;
   using BaseFile::getWriteError;
 
+  /** Ensure that any bytes written to the file are saved to the SD card. */
+  void flush() override {
+    BaseFile::sync();
+  }
   /** Write a single byte.
    * \param[in] b byte to write.
    * \return one for success.
@@ -125,8 +129,18 @@ class StreamFile : public stream_t, public BaseFile {
    * \return For success return the number of read bytes.
    * If an error occurs or end of file is reached return -1.
    */
+  size_t readBytes(uint8_t* buffer, size_t size) {
+    return BaseFile::read((void*)buffer, size);
+  }
+
+  // esp8266/Arduino - overload for Stream.h
+  size_t readBytes(char* buffer, size_t size) {
+      return readBytes((uint8_t*)buffer, size);
+  }
+
+  // esp8266/Arduino - overload for StreamDev.h
   int read(uint8_t* buffer, size_t size) override {
-    return BaseFile::read(buffer, size);
+    return BaseFile::read((void*)buffer, size);
   }
 
   /** Rewind a file if it is a directory */
