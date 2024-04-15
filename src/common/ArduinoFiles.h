@@ -138,8 +138,12 @@ class StreamFile : public stream_t, public BaseFile {
     return BaseFile::read((void*)buffer, size);
   }
 
-  // esp8266/Arduino - overload for StreamDev.h
+#ifdef ESP8266
+// esp8266/Arduino - overload for StreamDev.h
   int read(uint8_t* buffer, size_t size) override {
+#else
+  int read(uint8_t* buffer, size_t size) {
+#endif
     return BaseFile::read((void*)buffer, size);
   }
 
