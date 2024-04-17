@@ -196,7 +196,7 @@ void binaryToCsv() {
   uint32_t tPct = millis();
   printRecord(&csvFile, nullptr);
   while (!Serial.available() && binFile.available()) {
-    int nb = binFile.read(binData, sizeof(binData));
+    int nb = binFile.read((uint8_t*)binData, sizeof(binData));
     if (nb <= 0) {
       error("read binFile failed");
     }
@@ -308,7 +308,7 @@ void logData() {
   // Write dummy sector to start multi-block write.
   dbgAssert(sizeof(fifoBuf) >= 512);
   memset(fifoBuf, 0, sizeof(fifoBuf));
-  if (binFile.write(fifoBuf, 512) != 512) {
+  if (binFile.write((uint8_t*)fifoBuf, 512) != 512) {
     error("write first sector failed");
   }
   clearSerialInput();
@@ -375,7 +375,7 @@ void logData() {
       if (nw > MAX_WRITE) nw = MAX_WRITE;
       size_t nb = nw * sizeof(data_t);
       uint32_t usec = micros();
-      if (nb != binFile.write(fifoData + fifoTail, nb)) {
+      if (nb != binFile.write((uint8_t*)(fifoData + fifoTail), nb)) {
         error("write binFile failed");
       }
       usec = micros() - usec;
@@ -454,7 +454,7 @@ void printData() {
   printRecord(&Serial, nullptr);
   while (binFile.available() && !Serial.available()) {
     data_t record;
-    if (binFile.read(&record, sizeof(data_t)) != sizeof(data_t)) {
+    if (binFile.read((uint8_t*)&record, sizeof(data_t)) != sizeof(data_t)) {
       error("read binFile failed");
     }
     printRecord(&Serial, &record);
