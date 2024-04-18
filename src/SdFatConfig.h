@@ -358,6 +358,18 @@ typedef uint8_t SdCsPin_t;
 #ifndef ENDL_CALLS_FLUSH
 #define ENDL_CALLS_FLUSH 0
 #endif  // ENDL_CALLS_FLUSH
+/**
+ * Handle Watchdog Timer for WiFi modules.
+ *
+ * Yield will be called before accessing the SPI bus if it has been more
+ * than WDT_YIELD_TIME_MILLIS milliseconds since the last yield call by SdFat.
+ */
+#if defined(PLATFORM_ID) || defined(ESP8266)
+// If Particle device or ESP8266 call yield.
+#define WDT_YIELD_TIME_MILLIS 100
+#else  // defined(PLATFORM_ID) || defined(ESP8266)
+#define WDT_YIELD_TIME_MILLIS 0
+#endif  // defined(PLATFORM_ID) || defined(ESP8266)
 //------------------------------------------------------------------------------
 /**
  * Set USE_SIMPLE_LITTLE_ENDIAN nonzero for little endian processors
