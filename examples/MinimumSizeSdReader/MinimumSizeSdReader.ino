@@ -24,17 +24,19 @@ FatFile file;
 
 void error(const char* msg) {
   Serial.println(msg);
-  while(true);
+  while (true) {
+  }
 }
-
 void setup() {
   int n;
   char buf[4];
 
   Serial.begin(115200);
-  while (!Serial) {}
+  while (!Serial) {
+  }
   Serial.println("Type any character to begin");
-  while (!Serial.available()) {}
+  while (!Serial.available()) {
+  }
 
   if (!SD.begin(CS_PIN)) error("SD.begin");
 
@@ -47,12 +49,11 @@ void setup() {
   if (!file.openExistingSFN(SFN_PATH)) error("open");
 #endif
   while ((n = file.read(buf, sizeof(buf)))) {
-   Serial.write(buf, n);
+    Serial.write(buf, n);
   }
-// close() is only needed if you write to the file. For example, read
-// config data, modify the data, rewind the file and write the data.
-// file.close();
+  // close() is only needed if you write to the file. For example, read
+  // config data, modify the data, rewind the file and write the data.
+  // file.close();
 }
 
-void loop() {
-}
+void loop() {}

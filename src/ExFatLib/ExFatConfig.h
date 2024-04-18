@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2021 Bill Greiman
+ * Copyright (c) 2011-2022 Bill Greiman
  * This file is part of the SdFat library for SD memory cards.
  *
  * MIT License
@@ -26,8 +26,8 @@
 #define ExFatConfig_h
 #include "SdFatConfig.h"
 
-#ifndef READ_ONLY
-#define READ_ONLY 0
-#endif  // READ_ONLY
+#ifndef EXFAT_READ_ONLY
+#define EXFAT_READ_ONLY 0
+#endif  // EXFAT_READ_ONLY
 
 #endif  // ExFatConfig_h

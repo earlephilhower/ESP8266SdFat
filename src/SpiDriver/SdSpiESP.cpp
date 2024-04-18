@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2021 Bill Greiman
+ * Copyright (c) 2011-2022 Bill Greiman
  * This file is part of the SdFat library for SD memory cards.
  *
  * MIT License
@@ -32,9 +32,7 @@ static void SdSpiArduinoYield() {
   optimistic_yield(WDT_YIELD_TIME_MILLIS * 1000);
 }
 //------------------------------------------------------------------------------
-void SdSpiArduinoDriver::activate() {
-  m_spi->beginTransaction(m_spiSettings);
-}
+void SdSpiArduinoDriver::activate() { m_spi->beginTransaction(m_spiSettings); }
 //------------------------------------------------------------------------------
 void SdSpiArduinoDriver::begin(SdSpiConfig spiConfig) {
   if (spiConfig.spiPort) {
@@ -49,9 +47,9 @@ void SdSpiArduinoDriver::begin(SdSpiConfig spiConfig) {
   m_spi->begin();
 }
 //------------------------------------------------------------------------------
-void SdSpiArduinoDriver::deactivate() {
-  m_spi->endTransaction();
-}
+void SdSpiArduinoDriver::deactivate() { m_spi->endTransaction(); }
+//------------------------------------------------------------------------------
+void SdSpiArduinoDriver::end() { m_spi->end(); }
 //------------------------------------------------------------------------------
 uint8_t SdSpiArduinoDriver::receive() {
   SdSpiArduinoYield();
@@ -62,14 +60,14 @@ uint8_t SdSpiArduinoDriver::receive(uint8_t* buf, size_t count) {
   SdSpiArduinoYield();
 #if ESP_UNALIGN_OK
   m_spi->transferBytes(nullptr, buf, count);
-#else  // ESP_UNALIGN_OK
+#else   // ESP_UNALIGN_OK
   // Adjust to 32-bit alignment.
   while ((reinterpret_cast<uintptr_t>(buf) & 0X3) && count) {
     *buf++ = m_spi->transfer(0xff);
     count--;
   }
   // Do multiple of four byte transfers.
-  size_t n4 = 4*(count/4);
+  size_t n4 = 4 * (count / 4);
   if (n4) {
     m_spi->transferBytes(nullptr, buf, n4);
   }
