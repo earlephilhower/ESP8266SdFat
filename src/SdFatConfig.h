@@ -142,6 +142,7 @@
  * If USE_SPI_ARRAY_TRANSFER is four use transfer(txTmp, buf, count) for
  * receive and transfer(buf, rxTmp, count) for send. Try this with STM32.
  */
+#define USE_SPI_ARRAY_TRANSFER 2
 #ifndef USE_SPI_ARRAY_TRANSFER
 #define USE_SPI_ARRAY_TRANSFER 0
 #endif  // USE_SPI_ARRAY_TRANSFER
