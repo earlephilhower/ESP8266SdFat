@@ -70,6 +70,13 @@ inline int FreeStack() {
   ESP.resetFreeContStack();
   return free;
 }
+#elif defined(__riscv)
+extern "C" char __StackLimit;
+inline int FreeStack() {
+  //TODO - ASM version?
+  char a = 0xab;
+  return &a - &__StackLimit;
+}
 #else  // defined(__AVR__) || defined(DOXYGEN)
 #ifndef FREE_STACK_CPP
 #warning FreeStack is not defined for this system.
