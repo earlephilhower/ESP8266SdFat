@@ -32,6 +32,21 @@
 #include <avr/io.h>
 #endif  // __AVR__
 
+// EFP3 Begin - Arduino-Pico definitions because we don't want to define them on the command line
+#ifndef FILE_COPY_CONSTRUCTOR_SELECT
+#define FILE_COPY_CONSTRUCTOR_SELECT FILE_COPY_CONSTRUCTOR_PUBLIC
+#endif
+#ifndef USE_UTF8_LONG_NAMES
+#define USE_UTF8_LONG_NAMES 1
+#endif
+#ifndef SDFAT_FILE_TYPE
+#define SDFAT_FILE_TYPE 3
+#endif
+#ifndef DISABLE_FS_H_WARNING
+#define DISABLE_FS_H_WARNING 1
+#endif
+// EFP3 End 
+
 // #include "SdFatDebugConfig.h"
 // To try UTF-8 encoded filenames.
 //  #define USE_UTF8_LONG_NAMES 1
